@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Session index{% endblock %}
+
+{% block body %}
+
+    <div class="d-flex align-items-center justify-content-between py-2 px-5">
+        <h1>Sessions</h1>
+        <a class="button button-perso-primary" href="{{ path('app_session_new') }}">Créer session</a>
+    </div>
+    
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for session in sessions %}
+            <tr>
+                <td>{{ session.id }}</td>
+                <td>{{ session.name }}</td>
+                <td>
+                    <a class="button button-perso-primary" href="{{ path('app_session_show', {'id': session.id}) }}">Voir</a>
+                    <a class="button button-perso-secondary" href="{{ path('app_session_edit', {'id': session.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

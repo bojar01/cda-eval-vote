@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier compte{% endblock %}
+
+{% block body %}
+<div class="d-flex align-items-center justify-content-between py-2 px-5">
+    <h1>Modifier compte</h1>
+    <a class="button button-perso-primary" href="{{ path('app_user_index') }}">Retour à la liste</a>
+</div>
+
+    {{ include('account/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+{% endblock %}

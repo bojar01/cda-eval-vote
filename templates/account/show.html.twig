@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <div class="d-flex align-items-center justify-content-between py-2 px-5">
+        <h1>Mon compte</h1>
+        <a class="button button-perso-primary" href="{{ path('app_home') }}">Retour à l'accueil</a>
+    </div>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Image</th>
+                <td>{% if user.image %}<img style=" width: 220px;" src="{{ asset('uploads/profil-picture/' ~ user.image)  }}"> {% endif %}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ user.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ user.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Session</th>
+                <td>{% if user.session %}<span class="perso-badge-primary">{{ user.session.name }}</span>{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ user.address }}</td>
+            </tr>
+            <tr>
+                <th>Code postal</th>
+                <td>{{ user.zipcode }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ user.town }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="button button-perso-secondary" href="{{ path('app_account_edit') }}">Modifier</a>
+
+{% endblock %}

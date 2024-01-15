@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Register</h1>
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}New SiteWorks
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Nouveau chantier</h1>
+        <div class="container blocNewSite">
+            {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+
+            {{ form_widget(form.customerFirstName, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.customerLastName, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.customerEmail, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.customerPhone, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.siteWorkAdress, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.siteWorkZipCode, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.siteWorkCity, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.siteWorkIntercom, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.siteWorkDigicode, {'attr': {'class': 'form-control'}}) }}
+            {{ form_widget(form.users) }}
+            <div id="site_works_documents" data-prototype="{{ form_row(form.documents.vars.prototype) | e }}" data-index="{{ form.documents | length }}">
+                {{ form_row(form.documents) }}
+            </div>
+            <button id="add_document" type="button" class="btn btn-primary">Ajouter un document</button>
+            <button id="remove_last_document" type="button" class="btn btn-danger">Supprimer le dernier document</button>
+
+            <!-- Bouton de soumission du formulaire -->
+            <button type="submit" class="btn btn-success">Valider le chantier</button>
+            {{ form_end(form) }}
+        </div>
+
+        <div class="container d-flex justify-content-end">
+            <a href="{{ path('app_site_works_index') }}">Retour</a>
+        </div>
+    </div>
+{% endblock %}

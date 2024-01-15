@@ -1,0 +1,65 @@
+.button {
+    padding: 10px 20px;
+    margin: 0;
+    border: none;
+    text-decoration: none;
+    display: block;
+    width: fit-content;
+    border-radius: 10px;
+    }
+
+.button-perso-primary {
+    background-color: #315397;
+    color: #F5F5F5;
+    font-weight: bold;
+
+    &:hover {
+        background-color: #2a4885;
+    }
+
+    &:active {
+        background-color: #223b6d;
+    }
+}
+
+.button-perso-secondary {
+    background-color: #F5F5F5;
+    color: #315397;
+    font-weight: bold;
+
+    &:hover {
+        background-color: #eeeeee;
+    }
+
+    &:active {
+        background-color: #e1e1e1;
+    }
+}
+
+.button-perso-warning {
+    background-color: #ea8117;
+    color: #ffffff;
+    font-weight: bold;
+
+    &:hover {
+        background-color: #ce7318;
+    }
+
+    &:active {
+        background-color: #c97214;
+    }
+}
+
+.button-perso-danger {
+    background-color: #db1414;
+    color: #ffffff;
+    font-weight: bold;
+
+    &:hover {
+        background-color: #bd1212;
+    }
+
+    &:active {
+        background-color: #a00f0f;
+    }
+}

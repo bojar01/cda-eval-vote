@@ -1,0 +1,44 @@
+body {
+    overflow: hidden;
+}
+
+
+.perso-badge-primary {
+    padding: 5px 10px;
+    background-color: #315397;
+    color: #F5F5F5;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.box {
+    padding: 10px 20px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    border-radius: 20px;
+}
+
+.text-red {
+    color: red;
+    font-weight: bold;
+}
+
+.perso-link {
+    text-decoration: none;
+}
+
+.session-container {
+    text-align: end;
+}
+
+
+img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+@import url('nav.scss');
+@import url('button.scss');
+@import url('graph.scss');

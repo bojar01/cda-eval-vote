@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Vote{% endblock %}
+
+{% block body %}
+<div class="d-flex align-items-center justify-content-between py-2 px-5">
+    <h1>Créer vote</h1>
+    <a class="button button-perso-primary"  href="{{ path('app_vote_index') }}">Retour à la liste</a>
+</div>
+
+    {{ include('vote/_form.html.twig') }}
+
+{% endblock %}

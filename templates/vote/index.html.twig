@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vote index{% endblock %}
+
+{% block body %}
+    <div class="d-flex align-items-center justify-content-between py-2 px-4">
+        <h1>Vote</h1>
+        <a class="button button-perso-primary " href="{{ path('app_vote_new') }}">Créer vote</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Session</th>
+                <th>Début candidature</th>
+                <th>Fin candidature</th>
+                <th>Début Election</th>
+                <th>Fin Election</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for vote in votes %}
+            <tr>
+                <td>{{ vote.id }}</td>
+                <td><span class="perso-badge-primary">{{ vote.sessionId.name }}</span></td>
+                <td>{{ vote.applicationStart ? vote.applicationStart|date('d/m/Y H:i:s') : '' }}</td>
+                <td>{{ vote.applicationEnd ? vote.applicationEnd|date('d/m/Y H:i:s') : '' }}</td>
+                <td>{{ vote.electionStart ? vote.electionStart|date('d/m/Y H:i:s') : '' }}</td>
+                <td>{{ vote.electionEnd ? vote.electionEnd|date('d/m/Y H:i:s') : '' }}</td>
+                <td>
+                    <a class="button button-perso-primary " href="{{ path('app_vote_show', {'id': vote.id}) }}">Voir</a>
+                    <a class="button button-perso-secondary" href="{{ path('app_vote_edit', {'id': vote.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Aucun vote à afficher</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

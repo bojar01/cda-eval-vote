@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_candidate_registeration', {'id': vote.id}) }}" onsubmit="return confirm('Souhaite tu confirmer ta participation ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('registeration' ~ vote.id) }}">
+    <button class="button button-perso-primary">Je veux être candidat</button>
+</form>

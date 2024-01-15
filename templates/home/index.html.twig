@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block body %}
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
+
+	{% if votes %}
+
+	<div class="example-wrapper">
+		{# <h1>Hello
+			{{ controller_name }}! ✅</h1> #}
+
+		{% set now = date('now') %}
+
+		{%  for vote in votes %}
+
+			{# {{ dump(vote.applicationStart) }}
+			    {{ dump(now) }} #}
+
+			{% if now > vote.applicationStart and now < vote.applicationEnd %}
+
+				{# {{ dump(vote.applicationStart) }} #}
+				<div class="box">
+					<h1>Candidatures</h1>
+
+					<p class="session-container">Session :
+						<span class="perso-badge-primary">{{ vote.sessionId.name }}</span>
+					</p>
+
+					<p>Vous pouvez désormais vous inscrire pour représenter votre session comme délégué(e)</p>
+
+					{# {{ dump(vote.candidates.id) }} #}
+
+					{# {{ dump(vote.candidates) }} #}
+
+					{# {{ dump(app.user) }} #}
+                    {% set isCandidate = false %}
+						{% for candidate in vote.candidates %}
+							{% if app.user.id == candidate.user.id %}
+
+                                {{ include('home/unsuscribe.html.twig') }}<p>
+                                {% set isCandidate = true %}
+								
+					        {% endif %}
+					    {% endfor %}
+
+                        {% if not isCandidate %}
+                            {{ include('home/candidate.html.twig') }}
+                        {% endif %}
+
+                        <p class="text-red">Fin des inscriptions le
+						{{ vote.applicationEnd|date('d/m/Y')}}
+						à {{vote.applicationEnd|date('H:i:s')}}</p>
+				</p>
+
+					{# {{ dump(vote.electionEnd) }} #}
+				</div>
+
+			{% elseif now > vote.electionStart and now < vote.electionEnd %}
+
+				<div class="box">
+
+					<h1>Voter</h1>
+
+					<p>Choix du délégué pour la session
+						<span class="perso-badge-primary">{{ vote.sessionId.name }}</span></p>
+
+					<form method="POST" action="{{ path('app_vote_vote', {'id': vote.id}) }}">
+						<input type="hidden" name="_token" value="{{ csrf_token('vote' ~ vote.id) }}">
+						<label class="my-2">Choisir votre futur délégué parmis la liste</label>
+						<select name="selected" class="form-select">
+							<option value="null">Vote blanc</option>
+							{% for candidate in vote.candidates %}
+							<option value="{{candidate.user.id}}">{{ candidate.user.firstname }} {{ candidate.user.lastname }}</option>
+							{% endfor %}
+							</select>
+								<div class="my-4">
+									<button class="button button-perso-primary">Voter</button>
+								</div>
+							</form>
+
+							<p class="text-red">Fin des inscriptions le
+								{{ vote.electionEnd|date('d/m/Y')}}
+								à
+								{{vote.electionEnd|date('H:i:s')}}</p>
+
+						</div>
+
+					{% else %}
+
+						<div class="box">
+							<h1>Résultats</h1>
+							{# {{ dump(vote.sessionId.users|length)}}  #}
+							{% set totalPoint = 0 %}
+							{% for candidate in vote.candidates %}
+
+							{% endfor %}
+							{% for candidate in vote.candidates %}
+								<div>
+									{# {{ dump( (candidate.voteCount * 100 ) / vote.sessionId.users|length )  }} #}
+									{% set totalPoint = totalPoint + candidate.voteCount %}
+									{% set percentage = (candidate.voteCount * 100 ) / vote.sessionId.users|length %}
+									{{ candidate.user.firstname }}
+									{{ candidate.user.lastname }}
+									{{percentage|number_format(2)}}
+									%
+									<div>
+										<div style="height:30px; width:{{ percentage }}%; background-color:#315397"></div>
+									</div>
+								</div>
+
+								<!-- {{ dump(totalPoint) }} -->
+							{% endfor %}
+
+							<!-- {{ dump(vote) }} -->
+
+							<div>
+								{% set abstention = (vote.sessionId.users|length - vote.userVotes|length) * 100 / vote.sessionId.users|length %}
+								Abstention {{ abstention|number_format(2) }} %
+								<div>
+									<div class="graph-bar-color" style="height:30px; width:{{ abstention }}%; background-color:#315397"></div>
+								</div>
+								<!-- {{ dump( (vote.sessionId.users|length - vote.userVotes|length) * 100 / vote.sessionId.users|length ) }} -->
+							</div>
+							<div>
+								{% set blank = (vote.userVotes|length - totalPoint) * 100 / vote.sessionId.users|length %}
+								Vote blanc {{ blank|number_format(2) }} %
+								<div>
+									<div  style="height:30px; width:{{blank}}%; background-color:#315397"></div>
+								</div>
+								<!-- {{ (vote.userVotes|length - totalPoint) * 100 / vote.sessionId.users|length }} -->
+							</div>
+
+						</div>
+
+						{# {{ dump(now > vote.electionStart) }}
+						    {{ dump(now) }}
+						    {{ dump(now < vote.electionEnd) }} #}
+
+					{% endif %}
+
+					{# Resultat ici #}
+
+				{% endfor %}
+			</div>
+
+			{% else %}
+
+			<p>Aucun vote</p>
+
+			{% endif %}
+
+		{% endblock %}
+

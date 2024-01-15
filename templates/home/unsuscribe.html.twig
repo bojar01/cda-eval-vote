@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_candidate_unsuscribe', {'id': vote.id}) }}" onsubmit="return confirm('Est tu sur de vouloir te retirer ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('unsuscribe' ~ vote.id) }}">
+    <button class="button button-perso-primary">Je ne veux plus être candidat</button>
+</form>

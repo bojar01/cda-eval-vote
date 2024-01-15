@@ -1,0 +1,36 @@
+.nav-main {
+    background-color: #315397;
+    color: #fff;
+
+    .nav-title {
+        font-size: 1.75rem;
+    }
+
+    .nav-subtitle {
+        opacity: 0.5;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    a {
+        display: block;
+        color: #fff;
+        padding: 10px 0;
+    }
+}
+
+i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.nav-active {
+    background-color: #fff;
+    padding: 10px 20px;
+
+    a {
+        color: #315397;
+    }
+}
